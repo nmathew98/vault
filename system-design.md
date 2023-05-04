@@ -6,7 +6,7 @@
 	- S: Single Responsibility, A class should change for one reason only
 	- O: Open/Closed Principle, Open for extension and closed for changes
 	- L: Liskov Substitution, Subclasses should exhibit the same behaviour as the superclass, they should be interchangeable
-	- I: Interface Segregation, Prefer interfaces to subclassing
+	- I: Interface Segregation, Classes should not have empty methods because of an interface
 	- D: Dependency Inversion, Superiors should not depend on dependents
 - Principles of Component Cohesion:
 	- REP: Reuse/Release Equivalency Principle, The granule of reuse is the granule of release
