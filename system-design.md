@@ -20,6 +20,9 @@
 	- A service performs a set of operations on an entity. Multiple services can see different versions of said entity (bounded context)
 	- Group the different operations which are performed on the entity together by their effects (This will also usually mean that these operations have similar scalability requirements)
 - Prefer vertical slicing over horizontal slicing when it comes to system architecture. Horizontal layers do not change at the same rate and any breaking changes can easily spill over into other boundaries.
+	- Layers (horizontal slices) in code bases come at a cost, things are so spread out its hard to see a clear picture (clean architecture)
+	- Vertical slices might be better it depends. If the system or service is so big that you're not going to see a clear picture then horizontal slices might be more appropriate
+	- If the system or service is so big that there is no clear picture is it a microservice?
 - How to determine the boundaries
 	- Boundaries are difficult to determine in design, a perfectly planned design will most likely not be an ideal design after implementation. The best way to determine boundaries is after implementation
 	- Better to build in a modular manner and let reality dictate the exact architectural boundaries. Once that is done, stronger encapsulation between boundaries can be implemented
