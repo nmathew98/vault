@@ -6,7 +6,7 @@
 	- S: Single Responsibility, A class should change for one reason only
 	- O: Open/Closed Principle, Open for extension and closed for changes
 	- L: Liskov Substitution, Subclasses should exhibit the same behaviour as the superclass, they should be interchangeable
-	- I: Interface Segregation, Classes should not have empty methods because of an interface
+	- I: Interface Segregation, Prefer interfaces to subclassing
 	- D: Dependency Inversion, Superiors should not depend on dependents
 - Principles of Component Cohesion:
 	- REP: Reuse/Release Equivalency Principle, The granule of reuse is the granule of release
@@ -68,7 +68,8 @@
 			- GCP Cloud Functions <=> AWS Lambda
 			- GCP Cloud Run <=> AWS Fargate
 			- GCP App Engine <=> AWS ECS
-
+	- Parallel/Multithreading/Concurrent workflows
+		- Design for one and make that parallel instead of designing for parallel using something like GNU Parallel
 
 
 ## Internet
@@ -96,4 +97,3 @@
 	- 6: Presentation - Ensure data is in a usable format and is where encryption occurs (SSL, SSH)
 	- 7: Application - Human-computer interaction layer (HTTP, DNS, FTP)
 - ![TCP vs UDP](https://www.netburner.com/wp-content/uploads/2020/06/TCP-vs-UDP.png)
-
