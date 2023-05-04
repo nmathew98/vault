@@ -6,7 +6,7 @@
 	- S: Single Responsibility, A class should change for one reason only
 	- O: Open/Closed Principle, Open for extension and closed for changes
 	- L: Liskov Substitution, Subclasses should exhibit the same behaviour as the superclass, they should be interchangeable
-	- I: Interface Segregation, Prefer interfaces to subclassing
+	- I: Interface Segregation, Classes should not have empty methods because of an interface
 	- D: Dependency Inversion, Superiors should not depend on dependents
 - Principles of Component Cohesion:
 	- REP: Reuse/Release Equivalency Principle, The granule of reuse is the granule of release
@@ -68,27 +68,37 @@
 			- GCP Cloud Functions <=> AWS Lambda
 			- GCP Cloud Run <=> AWS Fargate
 			- GCP App Engine <=> AWS ECS
-	- Parallel/Multithreading/Concurrent workflows
-		- Design for one and make that parallel instead of designing for parallel using something like GNU Parallel
+	- Juggling workflows
+		- Design for one and make that juggle instead of designing to juggle using something like GNU Parallel (at the level of system tools) or message brokers (Kafka, RabbitMQ) for services
 
 
 ## Internet
 
 - Request/response is the name of the game
+
 - Status codes
+
 	- Informational responses: 100 - 199
 	- Successful responses: 200 - 299
 	- Redirection responses: 300 - 399
 	- Client error responses: 400 - 499
 	- Server error responses: 500 - 599
+
 - Compress responses for production (gzip is common)
+
 - When implementing SSL, prefer SSL/TLS offloading, this is when SSL/TLS is handled by a reverse proxy
+
 - Reverse proxy: Sits behind a firewall and directs traffic to the API
+
 - CORS: Tells the server which origins are able to load its resources, no way around it
+
 - Authentication
+
 	- JWT: Two tokes authorization and refresh. Authorization is short lived (accessible by client), refresh is long lived (only accessible by backend). Stateless
 	- Sessions: Everyone gets a session cookie, cookie can be invalidated by API which will block access. Stateful
+
 - OSI Model
+
 	- 1: Physical - Transmit raw bit stream over physical medium (Fiber, Wireless, Routers, Network Adapters)
 	- 2: Data link - Define the format of data on network (Ethernet)
 	- 3: Network - Decide which path data will take (Packets, IP)
@@ -96,4 +106,5 @@
 	- 5: Session - Maintains connections and is responsible for controlling ports and sessions (API, Sockets)
 	- 6: Presentation - Ensure data is in a usable format and is where encryption occurs (SSL, SSH)
 	- 7: Application - Human-computer interaction layer (HTTP, DNS, FTP)
-- ![TCP vs UDP](https://www.netburner.com/wp-content/uploads/2020/06/TCP-vs-UDP.png)
+
+	![TCP vs UDP](https://www.netburner.com/wp-content/uploads/2020/06/TCP-vs-UDP.png)
