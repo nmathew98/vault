@@ -1,6 +1,21 @@
 ## Microservices
 
 - General principles are rules of thumb not law
+- Dumb tools, smart applications
+- SOLID
+	- S: Single Responsibility, A class should change for one reason only
+	- O: Open/Closed Principle, Open for extension and closed for changes
+	- L: Liskov Substitution, Subclasses should exhibit the same behaviour as the superclass, they should be interchangeable
+	- I: Interface Segregation, Prefer interfaces to subclassing
+	- D: Dependency Inversion, Superiors should not depend on dependents
+- Principles of Component Cohesion:
+	- REP: Reuse/Release Equivalency Principle, The granule of reuse is the granule of release
+	- CRP: Common Reuse Principle, Classes that tend to be reused together belong in the same component
+	- CCP: Common Closure Principle, Components in a class should be affected by the same kind of changes
+- Principles of Component Coupling:
+	- ADP: Acyclic Dependencies Principle, No cycles in dependency graph
+	- SDP: Stable-Dependency Principle, Depend in the direction of stability
+	- SAP: Stable-Abstractions Principle, More abstract = more stable
 - How to determine the scope and responsibility of a service
 	- A service performs a set of operations on an entity. Multiple services can see different versions of said entity (bounded context)
 	- Group the different operations which are performed on the entity together by their effects (This will also usually mean that these operations have similar scalability requirements)
@@ -70,5 +85,15 @@
 - Reverse proxy: Sits behind a firewall and directs traffic to the API
 - CORS: Tells the server which origins are able to load its resources, no way around it
 - Authentication
-	- JWT: Two tokes authorization and refresh. Authorization is short lived (accessible by client), refresh is long live (only accessible by backend). Stateless
+	- JWT: Two tokes authorization and refresh. Authorization is short lived (accessible by client), refresh is long lived (only accessible by backend). Stateless
 	- Sessions: Everyone gets a session cookie, cookie can be invalidated by API which will block access. Stateful
+- OSI Model
+	- 1: Physical - Transmit raw bit stream over physical medium (Fiber, Wireless, Routers, Network Adapters)
+	- 2: Data link - Define the format of data on network (Ethernet)
+	- 3: Network - Decide which path data will take (Packets, IP)
+	- 4: Transport - Trasmit data using protocols (TCP, UDP)
+	- 5: Session - Maintains connections and is responsible for controlling ports and sessions (API, Sockets)
+	- 6: Presentation - Ensure data is in a usable format and is where encryption occurs (SSL, SSH)
+	- 7: Application - Human-computer interaction layer (HTTP, DNS, FTP)
+- ![TCP vs UDP](https://www.netburner.com/wp-content/uploads/2020/06/TCP-vs-UDP.png)
+
