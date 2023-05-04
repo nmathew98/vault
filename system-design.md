@@ -1,0 +1,74 @@
+## Microservices
+
+- General principles are rules of thumb not law
+- How to determine the scope and responsibility of a service
+	- A service performs a set of operations on an entity. Multiple services can see different versions of said entity (bounded context)
+	- Group the different operations which are performed on the entity together by their effects (This will also usually mean that these operations have similar scalability requirements)
+- Prefer vertical slicing over horizontal slicing when it comes to system architecture. Horizontal layers do not change at the same rate and any breaking changes can easily spill over into other boundaries.
+- How to determine the boundaries
+	- Boundaries are difficult to determine in design, a perfectly planned design will most likely not be an ideal design after implementation. The best way to determine boundaries is after implementation
+	- Better to build in a modular manner and let reality dictate the exact architectural boundaries. Once that is done, stronger encapsulation between boundaries can be implemented
+	- Boundaries change as functional and non-functional requirements change
+- Testing
+	- Most of the time enough: Inject mock data and test things happen as they should on each service individually
+	- Prefer tests with broad scope over fine-grained scope
+	- Edge case: Orchestrate the entire system and test, this becomes unsustainable quite quickly
+- Security
+	- Protect the data at a network level, protect services at an application level unless absolutely necessary, most of the time this will suffice
+	- Reason is because network hops are expensive and introduce points of failure
+- Failures
+	- Ideally coupling between microservices should be kept to a minimum
+	- Application: Use something like BFF to orchestrate flows required for use cases, if any microservice fails propagate that failure to the user. In the absence of BFF, you would want to return which microservice failed (if one microservice depends on another microservice) or if the orchestration is done on the frontend then that information is already accessible
+	- Network: Automatic retry, manual retry. Whenever there is retry + mutation, we need to be idempotent
+	- Fire: :'(
+- Technologies/Frameworks
+	- Message brokers: Kafka (event streams), RabbitMQ (queues, rpc)
+	- System interface: REST, GraphQL, gRPC. Guiding principle: Keep to existing standards and protocols (HTTP), everybody knows it and it keeps things simple
+		- REST: Traditional request response, easy to cache server side. If overfetching is not a major issue this is fine and preferred
+		- GraphQL: Caching done client side usually because of single POST entrypoint. If mobile devices are concerned, prefer GraphQL
+		- RPC: High performance, be wary that the RPC is hiding a network call and errors can include network errors (things are broken and don't know why). Good for intercommunication between microservices and then use something like BFF for client access so that it does not complicate client code
+	- Databases
+		- NoSQL: Unstructured data. Good for document dumps like receipts
+		- Relational: Structured data. Data integrity and validity is important, constraints are important
+		- Time-series: Tracking
+		- Graph: Data which forms a network and the relationships in the network are important
+	- Monitoring/Observability
+		- ElasticStack (Elasticsearch, Kibana, Beats, Logstash): Log aggregation
+			- Elasticsearch: Indexing & Storage (optimized for text search)
+			- Logstash: Data aggregating & pipelining
+			- Kibana: Analysis & visualization
+			- Beats: Data collection
+		- Grafana: Analytics
+		- Sentry: Error monitoring
+		- Jaegar: Optimized for distributed tracing across multiple microservices so you can see where a flow broke down across multiple microservices
+		- Prometheus: Event monitoring and alerting
+	- Containerization
+		- Docker/Podman: Build a fence around the host
+		- VM: Build a wall around the host
+		- Kubernetes: Orchestrates containers, provides: automatic deployment, scaling, load balancing, monitoring (if service dies then restart), incremental updates to nodes
+		- Docker Swarm: Cluster of same containers not multiple containers, provides: scaling, load balancing, incremental updates to nodes
+	- Technologies
+		- AWS: Services for fine grained use cases are sticky, stick to the broad use case services, good for flexibility
+		- GCP: Good for build systems and getting started quickly
+			- GCP Cloud Functions <=> AWS Lambda
+			- GCP Cloud Run <=> AWS Fargate
+			- GCP App Engine <=> AWS ECS
+
+
+
+## Internet
+
+- Request/response is the name of the game
+- Status codes
+	- Informational responses: 100 - 199
+	- Successful responses: 200 - 299
+	- Redirection responses: 300 - 399
+	- Client error responses: 400 - 499
+	- Server error responses: 500 - 599
+- Compress responses for production (gzip is common)
+- When implementing SSL, prefer SSL/TLS offloading, this is when SSL/TLS is handled by a reverse proxy
+- Reverse proxy: Sits behind a firewall and directs traffic to the API
+- CORS: Tells the server which origins are able to load its resources, no way around it
+- Authentication
+	- JWT: Two tokes authorization and refresh. Authorization is short lived (accessible by client), refresh is long live (only accessible by backend). Stateless
+	- Sessions: Everyone gets a session cookie, cookie can be invalidated by API which will block access. Stateful
