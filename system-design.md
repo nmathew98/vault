@@ -98,6 +98,9 @@
 		- Blocking or non blocking interservice communication models depends 
 		- Non blocking style is good for fault tolerance and where performance is not that much of a concern
 		- Blocking style is good for high performance but highly available environments (serverless, cloud, etc)
+	- Picking languages/frameworks
+		- Network latencies and time complexity have a bigger impact than language performance
+		- But, language performance does have an impact on server costs
 
 ## Internet
 
@@ -117,7 +120,7 @@
 
 - Reverse proxy: Sits behind a firewall and directs traffic to the API
 
-- CORS: Tells the server which origins are able to load its resources, no way around it
+- CORS: The server tells the clients which origins are able to load its resources, no way around it
 
 - Authentication
 
