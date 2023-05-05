@@ -1,45 +1,66 @@
 ## Microservices
 
 - General principles are rules of thumb not law
+
 - Dumb tools, smart applications
+
 - SOLID
+
 	- S: Single Responsibility, A class should change for one reason only
 	- O: Open/Closed Principle, Open for extension and closed for changes
 	- L: Liskov Substitution, Subclasses should exhibit the same behaviour as the superclass, they should be interchangeable
 	- I: Interface Segregation, Classes should not have empty methods because of an interface
 	- D: Dependency Inversion, Superiors should not depend on dependents
+
 - Principles of Component Cohesion:
+
 	- REP: Reuse/Release Equivalency Principle, The granule of reuse is the granule of release
 	- CRP: Common Reuse Principle, Classes that tend to be reused together belong in the same component
 	- CCP: Common Closure Principle, Components in a class should be affected by the same kind of changes
+
 - Principles of Component Coupling:
+
 	- ADP: Acyclic Dependencies Principle, No cycles in dependency graph
 	- SDP: Stable-Dependency Principle, Depend in the direction of stability
 	- SAP: Stable-Abstractions Principle, More abstract = more stable
+
 - How to determine the scope and responsibility of a service
+
 	- A service performs a set of operations on an entity. Multiple services can see different versions of said entity (bounded context)
 	- Group the different operations which are performed on the entity together by their effects (This will also usually mean that these operations have similar scalability requirements)
+
 - Prefer vertical slicing over horizontal slicing when it comes to system architecture. Horizontal layers do not change at the same rate and any breaking changes can easily spill over into other boundaries.
+
 	- Layers (horizontal slices) in code bases come at a cost, things are so spread out its hard to see a clear picture (clean architecture)
 	- Vertical slices might be better it depends. If the system or service is so big that you're not going to see a clear picture then horizontal slices might be more appropriate
 	- If the system or service is so big that there is no clear picture is it a microservice?
+
 - How to determine the boundaries
+
 	- Boundaries are difficult to determine in design, a perfectly planned design will most likely not be an ideal design after implementation. The best way to determine boundaries is after implementation
 	- Better to build in a modular manner and let reality dictate the exact architectural boundaries. Once that is done, stronger encapsulation between boundaries can be implemented
 	- Boundaries change as functional and non-functional requirements change
+
 - Testing
+
 	- Most of the time enough: Inject mock data and test things happen as they should on each service individually
 	- Prefer tests with broad scope over fine-grained scope
 	- Edge case: Orchestrate the entire system and test, this becomes unsustainable quite quickly
+
 - Security
+
 	- Protect the data at a network level, protect services at an application level unless absolutely necessary, most of the time this will suffice
 	- Reason is because network hops are expensive and introduce points of failure
+
 - Failures
+
 	- Ideally coupling between microservices should be kept to a minimum
 	- Application: Use something like BFF to orchestrate flows required for use cases, if any microservice fails propagate that failure to the user. In the absence of BFF, you would want to return which microservice failed (if one microservice depends on another microservice) or if the orchestration is done on the frontend then that information is already accessible
 	- Network: Automatic retry, manual retry. Whenever there is retry + mutation, we need to be idempotent
 	- Fire: :'(
+
 - Technologies/Frameworks
+
 	- Message brokers: Kafka (event streams), RabbitMQ (queues, rpc)
 	- System interface: REST, GraphQL, gRPC. Guiding principle: Keep to existing standards and protocols (HTTP), everybody knows it and it keeps things simple
 		- REST: Traditional request response, easy to cache server side. If overfetching is not a major issue this is fine and preferred
@@ -73,7 +94,10 @@
 			- GCP App Engine <=> AWS ECS
 	- Juggling workflows
 		- Design for one and make that juggle instead of designing to juggle using something like GNU Parallel (at the level of system tools) or message brokers (Kafka, RabbitMQ) for services
-
+	- Event driven/RPC/Request-Response
+		- Blocking or non blocking interservice communication models depends 
+		- Non blocking style is good for fault tolerance and where performance is not that much of a concern
+		- Blocking style is good for high performance but highly available environments (serverless, cloud, etc)
 
 ## Internet
 
