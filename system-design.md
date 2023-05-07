@@ -93,7 +93,7 @@
 			- GCP Cloud Run <=> AWS Fargate
 			- GCP App Engine <=> AWS ECS
 	- Juggling workflows
-		- Design for one and make that juggle instead of designing to juggle using something like GNU Parallel (at the level of system tools) or message brokers (Kafka, RabbitMQ) for services
+		- Design for one and make that juggle instead of designing to juggle using something like GNU Parallel (at the level of system tools) or message brokers (Kafka, RabbitMQ) for services. This is called an actor based system.
 	- Event driven/RPC/Request-Response
 		- Blocking or non blocking interservice communication models depends 
 		- Non blocking style is good for fault tolerance and where performance is not that much of a concern
